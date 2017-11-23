@@ -1,25 +1,25 @@
 clear;
 clc;
-%% my main scipt for vector image regularization wih pdes
-tic
-img=imread('images/peppers.png');
-img=255*im2double(img);
-[m, n, k] = size(img);
-imshow((mat2gray(img)));
-waitforbuttonpress;
-% Add noise to image
-variance = 0.05*(max(img(:)) - min(img(:)));
-G = (variance)*(randn(m, n, k));
-size(img)
-noisyim = img + G;
-imwrite(mat2gray(noisyim),'output/peppers_noisy.png')
-imshow((mat2gray(noisyim)));
-figure()
-new_img=pde_regularize(img,noisyim,5,0.5,3.5,11,1);
-imwrite(mat2gray(new_img),'output/peppers_regularized.png')
-imshow((mat2gray(new_img)));
+%% Mainscipt
+% tic
+% img=imread('images/peppers.png');
+% img=255*im2double(img);
+% [m, n, k] = size(img);
+% imshow((mat2gray(img)));
 
-toc
+% % Adding noise to the image
+% variance = 0.05*(max(img(:)) - min(img(:)));
+% G = (variance)*(randn(m, n, k));
+% size(img)
+% noisyim = img + G;
+% imwrite(mat2gray(noisyim),'output/peppers_noisy.png')
+% imshow((mat2gray(noisyim)));
+% figure()
+% new_img=myRegularize(img,noisyim,5,0.5,1,11,3.5);
+% imwrite(mat2gray(new_img),'output/peppers_regularized.png')
+% imshow((mat2gray(new_img)));
+
+% toc
 
 %% magnification
 % tic
@@ -30,9 +30,9 @@ toc
 % mag_img = imresize(img,4,'nearest');
 % mag_img=255*im2double(mag_img);
 % imshow(mat2gray(mag_img));
-% waitforbuttonpress;
+% 
 % figure()
-% new_img=pde_regularize(mag_img,mag_img,7,20,20,100,0);
+% new_img=myRegularize(mag_img,mag_img,7,20,0,100,20);
 % 
 % toc
 
@@ -42,25 +42,25 @@ toc
 % img=255*im2double(img);
 
 % printImage(img);
-% waitforbuttonpress;
+% 
 % figure()
-% new_img=pde_regularize(img,img,7,4,1.75,10,0);
+% new_img=myRegularize(img,img,7,4,0,10,1.75);
 % imwrite(mat2gray(new_img),'output/lenna_compressed_regularized.jpg');
 % toc
 
 
-% %% inpainting
-% tic
+%% inpainting
+tic
 
-% img = imread( 'images/parrot.ppm' );
-% mask = imread( 'images/parrot_mask.pgm' );
+img = imread( 'images/parrot.ppm' );
+mask = imread( 'images/parrot_mask.pgm' );
 
-% img=255*im2double(img);
-% [m, n, k] = size(img);
-% imshow((mat2gray(img)));
-% waitforbuttonpress;
-% figure()
+img=255*im2double(img);
+[m, n, k] = size(img);
+imshow((mat2gray(img)));
 
-% new_img = pde_inpaint(img, mask, 5, 0.5, 500, 50);
+figure()
 
-% toc
+new_img = pde_inpaint(img, mask, 5, 0.5, 500, 50);
+
+toc
