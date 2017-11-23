@@ -1,25 +1,25 @@
 clear;
 clc;
 %% Mainscipt
-tic
-img=imread('images/peppers.png');
-img=255*im2double(img);
-[m, n, k] = size(img);
-imshow((mat2gray(img)));
+% tic
+% img=imread('images/peppers.png');
+% img=255*im2double(img);
+% [m, n, k] = size(img);
+% imshow((mat2gray(img)));
 
-% Adding noise to the image
-variance = 0.05*(max(img(:)) - min(img(:)));
-G = (variance)*(randn(m, n, k));
-size(img)
-noisyim = img + G;
-imwrite(mat2gray(noisyim),'output/peppers_noisy.png')
-imshow((mat2gray(noisyim)));
-figure()
-new_img=myRegularize(img,noisyim,5,0.5,1,11,3.5);
-imwrite(mat2gray(new_img),'output/peppers_regularized.png')
-imshow((mat2gray(new_img)));
+% % Adding noise to the image
+% variance = 0.05*(max(img(:)) - min(img(:)));
+% G = (variance)*(randn(m, n, k));
+% size(img)
+% noisyim = img + G;
+% imwrite(mat2gray(noisyim),'output/peppers_noisy.png')
+% imshow((mat2gray(noisyim)));
+% figure()
+% new_img=myRegularize(img,noisyim,5,0.5,1,11,3.5);
+% imwrite(mat2gray(new_img),'output/peppers_regularized.png')
+% imshow((mat2gray(new_img)));
 
-toc
+% toc
 
 %% magnification
 % tic
@@ -49,18 +49,18 @@ toc
 % toc
 
 
-% %% inpainting
-% tic
+%% inpainting
+tic
 
-% img = imread( 'images/parrot.ppm' );
-% mask = imread( 'images/parrot_mask.pgm' );
+img = imread( 'images/parrot.ppm' );
+mask = imread( 'images/parrot_mask.pgm' );
 
-% img=255*im2double(img);
-% [m, n, k] = size(img);
-% imshow((mat2gray(img)));
-% 
-% figure()
+img=255*im2double(img);
+[m, n, k] = size(img);
+imshow((mat2gray(img)));
 
-% new_img = pde_inpaint(img, mask, 5, 50, 500, 0.5);
+figure()
 
-% toc
+new_img = pde_inpaint(img, mask, 5, 0.5, 500, 50);
+
+toc
