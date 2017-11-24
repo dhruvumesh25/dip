@@ -17,6 +17,47 @@ function [img] = pde_inpaint(img,mask,window_size,gaussian_sigma,dt,iter)
             end
         end
     end
+
+    imshow(img)
+
+    for i = 1:m
+        for j = 1:n
+            if(mask(i,j)>0)
+                for l = 1:k
+                    img(i,j,l) = 0;
+                end
+            end
+        end
+    end
+
+    for i = 1:m
+        for j = 1:n
+            if(mask(i,j)>0)
+                for k = 1:10
+                    if i>k
+                        if j>k && mask(i-k,j-k) == 0
+                            img(i,j,:) = img(i-k,j-k,:);
+                            break;
+                        end
+                        if j+k <= n && mask(i-k,j+k) == 0
+                            img(i,j,:) = img(i-k,j+k,:);
+                            break;
+                        end
+                    end
+                    if i+k <= m
+                        if j>k && mask(i+k,j-k) == 0
+                            img(i,j,:) = img(i+k,j-k,:);
+                            break;
+                        end
+                        if j+k <= n && mask(i+k,j+k) == 0
+                            img(i,j,:) = img(i+k,j+k,:);
+                            break;
+                        end
+                    end
+                end
+            end
+        end
+    end
     
     for i=1:iter
         I=img;

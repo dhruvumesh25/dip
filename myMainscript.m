@@ -61,6 +61,6 @@ imshow((mat2gray(img)));
 
 figure()
 
-new_img = pde_inpaint(img, mask, 5, 0.5, 500, 50);
+new_img = pde_inpaint(img, mask, 5, 4.5, 500, 200);
 
 toc
